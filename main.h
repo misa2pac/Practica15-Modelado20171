@@ -27,17 +27,11 @@ typedef Elemento** Lista;
 
 /* ------ Definición de tus funciones ------ */
 
-/*Imprime los elementos de la lista como enteros*/
-void imprime_lista_int(Lista lista);
-
 /*Crea una lista vacía*/
 Lista crea_lista();
 
 /*Inserta un elemento en la lista y se regresa el nuevo tamaño de la lista*/
 void inserta_elemento(Lista lista, Caracteres *caracter);
-
-/*Libera la memoria que se uso*/
-void libera_memoria(Lista lista, int tam);
 
 /*Busca las palabras mas repetidas en un documento*/
 Caracteres *buscaPalabra(Lista lista);
@@ -51,6 +45,4 @@ void imprime_instrucciones();
 /*Regresa el número de elementos en la lista*/
 size_t longitud(Lista lista);
 
-/*Funcion principal*/
-void inciar();
 #endif //MAIN_H

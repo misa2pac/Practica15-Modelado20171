@@ -1,6 +1,6 @@
 #include "main.h"
 // No hagas #include aquí, hazlos en main.h
-
+#define TAMBUFFER 200
 int main(int argc, char const *argv[])
 {
     // Verifica si hay al menos de 3 parametros
@@ -20,9 +20,7 @@ int main(int argc, char const *argv[])
 		documento = fopen(argv[i],"a+");
 		guardar(letters,documento);
 		Caracteres *rep = buscaPalabra(letters);
-		printf("%s", argv[i]);
-		printf("						 %s",rep->letra);
-		printf("						 %d\n",rep->num_palabras);
+		printf("%s			%s				%d\n", argv[i],rep->letra,rep->num_palabras);
 		}
 		printf("\nSe guardo el resultado en el archivo %s\n", argv[argc-1]);
 		fprintf(salida,"Nombre del archivo		Palabra mas repetida		Numero de repeticiones\n");
@@ -31,54 +29,13 @@ int main(int argc, char const *argv[])
 		documento = fopen(argv[i],"r");
 		guardar(letters,documento);
 		Caracteres *rep = buscaPalabra(letters);
-		fprintf(salida,"%s", argv[i]);
-		fprintf(salida,"						 %s",rep->letra);
-		fprintf(salida,"						 %d\n",rep->num_palabras);
+		fprintf(salida,"%s			%s				%d\n", argv[i],rep->letra,rep->num_palabras);
 		}
 		fclose(salida);
     return 0;
 }
 
 /* ------ Aquí va la implementación de tus funciones ------ */
-
-/*Funcion principal*/
-/*void inciar(){
-	int i = 0;
-	printf("Nombre del archivo		Palabra mas repetida		Numero de repeticiones\n");
-	FILE *documento;
-	FILE *salida = fopen(argv[argc-1], "w");
-	for(i = 1;i<argc-1; i++){
-		Lista letters = crea_lista();
-		documento = fopen(argv[i],"a+");
-		guardar(letters,documento);
-		Caracteres *rep = buscaPalabra(letters);
-		printf("%s", argc[i]);
-		printf("						 %s",rep->letra);
-		printf("						 %d\n",rep->num_palabras);
-		}
-		printf("\nSe guardo el resultado en el archivo %s\n", argv[argc-1]);
-		fprintf(salida,"Nombre del archivo		Palabra mas repetida		Numero de repeticiones\n");
-	for(i = 1;i<argc-1; i++){
-		Lista letters = crea_lista();
-		documento = fopen(argv[i],"r");
-		guardar(letters,documento);
-		Caracteres *rep = buscaPalabra(letters);
-		fprintf(salida,"%s", argc[i]);
-		fprintf(salida,"						 %s",rep->letra);
-		fprintf(salida,"						 %d\n",rep->num_palabras);
-		}
-		fclose(salida);
-	}*/
-/*Imprime los elementos de la lista como enteros*/
-void imprime_lista_int(Lista lista){
-	int i = 0;
-	Elemento *aux = *lista;
-	for(i = 0; i < longitud(lista); i++){
-		Caracteres *letras = aux->caracter;
-		printf("La palabra en la seccion [%d] es: %s y aparece %d veces \n", i,letras->letra,letras->num_palabras); 
-		aux = aux->siguiente;
-		}
-	}
 
 /*Crea una lista vacía*/
 Lista crea_lista(){
@@ -130,14 +87,14 @@ Caracteres *buscaPalabra(Lista lista){
 
 /*Guarda el documento con las palabras mas repetidas*/
 void guardar(Lista lista, FILE *documento){
-	char buffer[200];
-	while(fgets(buffer,200,documento)){
+	char buffer[TAMBUFFER];
+	while(fgets(buffer,TAMBUFFER,documento)){
 		char *token = NULL;
 		token = strtok(buffer," ,.-\n");
 		while(token != NULL){
 			Caracteres *Arreglo = malloc(sizeof(Caracteres));
 			Arreglo->num_palabras = 1;
-			Arreglo->letra = strndup(token,200);
+			Arreglo->letra = strndup(token,TAMBUFFER);
 			inserta_elemento(lista,Arreglo);
 			token = strtok(NULL," ,.-\n");
 			}
